@@ -1,13 +1,9 @@
-﻿using GCall.Persistence.Contexts;
+﻿using GCall.Application.Repositories.ReadRepository.Definitions;
+using GCall.Persistence.Contexts;
+using GCall.Persistence.Repositories.ReadRepository.Definitions;
 using GCall.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace GCall.Persistence
 {
     public static class ServiceRegistration
@@ -15,6 +11,11 @@ namespace GCall.Persistence
         public static void AddPersistenceServices(this IServiceCollection services)
         {
             services.AddDbContext<GCallDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
+
+            #region Definitions
+            services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
+
+            #endregion
         }
     }
 }
