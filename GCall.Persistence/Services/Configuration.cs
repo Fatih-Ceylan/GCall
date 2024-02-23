@@ -9,7 +9,8 @@ namespace GCall.Persistence.Services
             get
             {
                 ConfigurationManager configurationManager = new();
-                configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "C:\\inetpub\\wwwroot\\TestApi"));
+                //"C:\\inetpub\\wwwroot\\TestApi"
+                configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..\\GCall.Api"));
                 configurationManager.AddJsonFile("appsettings.json");
 
                 return configurationManager.GetConnectionString("SqlServer");

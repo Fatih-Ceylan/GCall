@@ -2,6 +2,7 @@
 using GCall.Application.Features.Queries.Definitions.Customer.GetAll;
 using GCall.Application.Features.Queries.Definitions.Customer.GetById;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,6 +10,7 @@ namespace GCall.Api.Controllers.Definitions
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
     public class CustomerController : ControllerBase
     {
         readonly IMediator _mediator;

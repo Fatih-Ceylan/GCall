@@ -17,6 +17,9 @@ namespace GCall.Persistence
             #region Definitions
             services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
             services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
+
+            services.AddScoped<ICompanyReadRepository, CompanyReadRepository>();
+            services.AddScoped<ICompanyWriteRepository, CompanyWriteRepository>();
             #endregion
         }
     }

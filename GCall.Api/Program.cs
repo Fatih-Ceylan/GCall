@@ -1,5 +1,6 @@
 using GCall.Persistence;
 using GCall.Application;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceServices();
 builder.Services.AddApplicationServices();
+
+// cors policy izinleri. ip adresi frontend ip adresi olacak.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy",
+        builder =>
+        {
+            builder.WithOrigins("http://10.0.2.88:3000")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,17 +34,27 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //app.UseSwaggerUI(c =>
-    //{
-    //    // To deploy on IIS
-    //    c.SwaggerEndpoint("/SimulaFrete/swagger/v1/swagger.json", "Web API V1");
-    //});
-}
+    app.UseSwaggerUI(c =>
+    {
+        string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
+        //c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Web API");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
 
+    });
+}
 app.UseSwagger();
-app.UseSwaggerUI();
- 
+app.UseSwaggerUI(c =>
+{
+    string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
+    //c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Web API");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+
+});
+
+app.UseCors();
+
 app.UseHttpsRedirection();
+
 app.UseDeveloperExceptionPage();
 
 app.UseAuthorization();

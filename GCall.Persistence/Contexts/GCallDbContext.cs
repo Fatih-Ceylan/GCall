@@ -2,11 +2,6 @@
 using GCall.Domain.Entities.Definitions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GCall.Persistence.Contexts
 {
@@ -15,7 +10,11 @@ namespace GCall.Persistence.Contexts
         public GCallDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        #region Definitions
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        #endregion
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
