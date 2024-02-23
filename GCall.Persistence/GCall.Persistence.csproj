@@ -20,8 +20,4 @@
     <ProjectReference Include="..\GCall.Application\GCall.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\WriteRepository\" />
-  </ItemGroup>
-
 </Project>
