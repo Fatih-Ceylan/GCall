@@ -1,10 +1,12 @@
 using GCall.Persistence;
+using GCall.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. 
 
 builder.Services.AddPersistenceServices();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,9 +20,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    //app.UseSwaggerUI(c =>
+    //{
+    //    // To deploy on IIS
+    //    c.SwaggerEndpoint("/SimulaFrete/swagger/v1/swagger.json", "Web API V1");
+    //});
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseDeveloperExceptionPage();
 
 app.UseAuthorization();
 
