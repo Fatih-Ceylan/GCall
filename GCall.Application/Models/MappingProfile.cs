@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using GCall.Application.DTOs.Definitions.Branch;
+using GCall.Application.Features.Commands.Definitions.Branch.Create;
 using GCall.Application.Features.Commands.Definitions.Company.Create;
 using GCall.Application.Features.Commands.Definitions.Company.Update;
 using GCall.Application.Features.Queries.Definitions.Company.GetById;
@@ -21,10 +23,17 @@ namespace GCall.Application.Models
             CreateMap<Company, ResponseUpdateCompany>();
             #endregion
 
+            #region Branch
+            CreateMap<RequestCreateBranch, Branch>().ReverseMap();
+            CreateMap<Branch, BranchListDTO>().ReverseMap();
+
+            #endregion
             #region Customer
 
             CreateMap<Customer, ResponseGetByIdCustomer>().ReverseMap();
             #endregion
+
+
         }
     }
 }

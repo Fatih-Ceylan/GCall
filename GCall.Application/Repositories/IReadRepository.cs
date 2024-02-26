@@ -1,10 +1,5 @@
 ﻿using GCall.Domain.Entities.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GCall.Application.Repositories
 {
@@ -13,6 +8,8 @@ namespace GCall.Application.Repositories
         IQueryable<T> GetAll(bool tracking = true);
 
         IQueryable<T> GetAllDescending(bool tracking = true);
+
+        IQueryable<T> GetAllIncluding(Expression<Func<T, object>>[] includeExpressions, bool tracking = true);
 
         IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true);
 

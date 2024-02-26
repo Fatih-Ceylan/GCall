@@ -2,6 +2,7 @@
 using GCall.Domain.Entities.Common;
 using GCall.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace GCall.Persistence.Repositories
 {
@@ -20,6 +21,23 @@ namespace GCall.Persistence.Repositories
             var query = Table.Where(x => x.IsDeleted == false).AsQueryable();
             if (!tracking)
                 query = query.AsNoTracking();
+
+            return query;
+        }
+
+        public IQueryable<T> GetAllIncluding(Expression<Func<T, object>>[] includeExpressions, bool tracking = true)
+        {
+            var query = Table.Where(x => x.IsDeleted == false).AsQueryable();
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            if (includeExpressions != null && includeExpressions.Any())
+            {
+                foreach (var includeExpression in includeExpressions)
+                {
+                    query = query.Include(includeExpression);
+                }
+            }
 
             return query;
         }

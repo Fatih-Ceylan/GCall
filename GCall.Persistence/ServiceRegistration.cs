@@ -20,7 +20,11 @@ namespace GCall.Persistence
 
             services.AddScoped<ICompanyReadRepository, CompanyReadRepository>();
             services.AddScoped<ICompanyWriteRepository, CompanyWriteRepository>();
+
+            services.AddScoped<IBranchReadRepository, BranchReadRepository>();
+            services.AddScoped<IBranchWriteRepository, BranchWriteRepository>();
             #endregion
+
         }
     }
 }

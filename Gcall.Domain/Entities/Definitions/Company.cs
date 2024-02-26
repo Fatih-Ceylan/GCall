@@ -12,6 +12,7 @@ namespace GCall.Domain.Entities.Definitions
         public string? SocialSecurityNo { get; set; }
         public string? MersisNo { get; set; }
         public string? LogoPath { get; set; }
+        public ICollection<Branch> Branches { get; set; }
 
     }
 }
