@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace GCall.Application.Features.Queries.Definitions.Company.GetById
+namespace GCall.Application.Features.Commands.Definitions.Company.Create
 {
-    public class ResponseGetByIdCompany
+    public class RequestCreateCompany : IRequest<ResponseCreateCompany>
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public string? WebAddress { get; set; }
         public string? TaxNo { get; set; }

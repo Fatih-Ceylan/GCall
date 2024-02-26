@@ -9,7 +9,6 @@ namespace GCall.Application.Features.Queries.Definitions.Company.GetById
 {
     public class RequestGetByIdCompany : IRequest<ResponseGetByIdCompany>
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string Id { get; set; }
     }
 }

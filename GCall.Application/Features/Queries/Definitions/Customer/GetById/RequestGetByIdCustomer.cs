@@ -9,6 +9,6 @@ namespace GCall.Application.Features.Queries.Definitions.Customer.GetById
 {
     public class RequestGetByIdCustomer : IRequest<ResponseGetByIdCustomer>
     {
-        public Guid Id { get; set; } 
+        public string Id { get; set; }
     }
 }
