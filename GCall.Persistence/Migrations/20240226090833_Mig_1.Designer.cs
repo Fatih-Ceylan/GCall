@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GCall.Persistence.Migrations
 {
     [DbContext(typeof(GCallDbContext))]
-    [Migration("20240223123736_Mig_3")]
-    partial class Mig_3
+    [Migration("20240226090833_Mig_1")]
+    partial class Mig_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
