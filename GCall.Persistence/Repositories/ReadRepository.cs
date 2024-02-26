@@ -17,7 +17,16 @@ namespace GCall.Persistence.Repositories
 
         public IQueryable<T> GetAll(bool tracking = true)
         {
-            var query = Table.AsQueryable();
+            var query = Table.Where(x => x.IsDeleted == false).AsQueryable();
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            return query;
+        }
+
+        public IQueryable<T> GetAllDescending(bool tracking = true)
+        {
+            var query = Table.Where(x => x.IsDeleted == false).OrderByDescending(x => x.CreatedDate).AsQueryable();
             if (!tracking)
                 query = query.AsNoTracking();
 

@@ -1,7 +1,13 @@
-﻿using MediatR;
+﻿
+using GCall.Application.Features.Commands.Definitions.Company.Create;
+using GCall.Application.Features.Commands.Definitions.Company.Delete;
+using GCall.Application.Features.Commands.Definitions.Company.Update;
+using GCall.Application.Features.Queries.Definitions.Company.GetAll;
+using GCall.Application.Features.Queries.Definitions.Company.GetById;
+using MediatR;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GCall.Api.Controllers.Definitions
 {
@@ -16,6 +22,43 @@ namespace GCall.Api.Controllers.Definitions
         public CompanyController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] RequestGetAllCompany requestGetAllCompany)
+        {
+            ResponseGetAllCompany response = await _mediator.Send(requestGetAllCompany);
+
+            return Ok(response);
+        }
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById([FromRoute] RequestGetByIdCompany requestGetByIdCompany)
+        {
+            ResponseGetByIdCompany response = await _mediator.Send(requestGetByIdCompany);
+
+            return Ok(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] RequestCreateCompany request)
+        {
+            ResponseCreateCompany response = await _mediator.Send(request);
+
+            //return Ok(response);
+            return StatusCode((int)HttpStatusCode.Created);
+        }
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] RequestUpdateCompany request)
+        {
+            ResponseUpdateCompany response = await _mediator.Send(request);
+
+            return Ok(response);
+            //return StatusCode((int)HttpStatusCode.OK);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] RequestDeleteCompany request)
+        {
+            ResponseDeleteCompany response = await _mediator.Send(request);
+            return Ok(response);
         }
     }
 

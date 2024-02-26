@@ -18,4 +18,9 @@
     <ProjectReference Include="..\Gcall.Domain\GCall.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Commands\Definitions\Customer\Delete\" />
+    <Folder Include="Features\Commands\Definitions\Customer\Update\" />
+  </ItemGroup>
+
 </Project>

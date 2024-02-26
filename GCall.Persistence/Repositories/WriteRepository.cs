@@ -37,6 +37,13 @@ namespace GCall.Persistence.Repositories
             EntityEntry<T> entityEntry = Table.Remove(model);
             return entityEntry.State == EntityState.Deleted;
         }
+        public bool SoftDelete(T model)
+        {
+            model.IsDeleted = true;
+            model.DeletedDate = DateTime.Now;
+            EntityEntry<T> entityEntry = Table.Update(model);
+            return entityEntry.State == EntityState.Deleted;
+        }
 
         public async Task<bool> RemoveAsync(string id)
         {
@@ -44,9 +51,31 @@ namespace GCall.Persistence.Repositories
             return Remove(model);
         }
 
+        public async Task<bool> SoftDeleteAsync(string id)
+        {
+            T model = await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
+            model.IsDeleted = true;
+            model.DeletedDate = DateTime.Now;
+            EntityEntry<T> entityEntry = Table.Update(model);
+
+            return entityEntry.State == EntityState.Modified;
+        }
+
         public bool RemoveRange(List<T> datas)
         {
             Table.RemoveRange(datas);
+            return true;
+        }
+
+        public bool SoftDeleteRange(List<T> datas)
+        {
+            foreach (T data in datas)
+            {
+                data.IsDeleted = true;
+                data.DeletedDate = DateTime.Now;
+            }
+            Table.UpdateRange(datas);
+
             return true;
         }
 
@@ -61,7 +90,9 @@ namespace GCall.Persistence.Repositories
             Table.UpdateRange(datas);
             return true;
         }
+
         public async Task<int> SaveAsync()
          => await _context.SaveChangesAsync();
+
     }
 }

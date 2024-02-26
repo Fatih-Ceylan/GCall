@@ -29,9 +29,9 @@ namespace GCall.Persistence.Contexts
                 _ = data.State switch
                 {
                     //TODO: Id added esnasında eklenecek.
-                    EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
-                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
-                    _ => DateTime.UtcNow
+                    EntityState.Added => data.Entity.CreatedDate = DateTime.Now,
+                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.Now,
+                    _ => DateTime.Now
                 };
             }
             #endregion

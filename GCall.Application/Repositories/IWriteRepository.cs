@@ -1,4 +1,6 @@
 ﻿using GCall.Domain.Entities.Common;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,15 @@ namespace GCall.Application.Repositories
 
         bool Remove(T model);
 
+        bool SoftDelete(T model);
+
         bool RemoveRange(List<T> datas);
 
+        bool SoftDeleteRange(List<T> datas);
+
         Task<bool> RemoveAsync(string id);
+
+        Task<bool> SoftDeleteAsync(string id);
 
         bool Update(T model);
 

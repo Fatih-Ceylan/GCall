@@ -1,4 +1,4 @@
-﻿using GCall.Application.Features.Commands.Commands.Definitions.Create;
+﻿using GCall.Application.Features.Commands.Definitions.Customer.Create;
 using GCall.Application.Features.Queries.Definitions.Customer.GetAll;
 using GCall.Application.Features.Queries.Definitions.Customer.GetById;
 using MediatR;
@@ -32,7 +32,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetById([FromQuery] RequestGetByIdCustomer requestGetByIdCustomer)
+        public async Task<IActionResult> GetById([FromRoute] RequestGetByIdCustomer requestGetByIdCustomer)
         {
             ResponseGetByIdCustomer response = await _mediator.Send(requestGetByIdCustomer);
 
