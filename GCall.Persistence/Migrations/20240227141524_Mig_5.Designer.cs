@@ -4,6 +4,7 @@ using GCall.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GCall.Persistence.Migrations
 {
     [DbContext(typeof(GCallDbContext))]
-    partial class GCallDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240227141524_Mig_5")]
+    partial class Mig_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,39 +55,6 @@ namespace GCall.Persistence.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Branches");
-                });
-
-            modelBuilder.Entity("GCall.Domain.Entities.Definitions.BranchDepartment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BranchId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("BranchesDepartments");
                 });
 
             modelBuilder.Entity("GCall.Domain.Entities.Definitions.Company", b =>
@@ -174,7 +144,7 @@ namespace GCall.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BranchId")
+                    b.Property<Guid>("BranchId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -185,9 +155,6 @@ namespace GCall.Persistence.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<Guid?>("MainDepartmentId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -214,47 +181,25 @@ namespace GCall.Persistence.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("GCall.Domain.Entities.Definitions.BranchDepartment", b =>
+            modelBuilder.Entity("GCall.Domain.Entities.Definitions.Department", b =>
                 {
                     b.HasOne("GCall.Domain.Entities.Definitions.Branch", "Branch")
-                        .WithMany("BranchesDepartments")
+                        .WithMany("Departments")
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GCall.Domain.Entities.Definitions.Department", "Department")
-                        .WithMany("BranchesDepartments")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Branch");
-
-                    b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("GCall.Domain.Entities.Definitions.Department", b =>
-                {
-                    b.HasOne("GCall.Domain.Entities.Definitions.Branch", null)
-                        .WithMany("Departments")
-                        .HasForeignKey("BranchId");
                 });
 
             modelBuilder.Entity("GCall.Domain.Entities.Definitions.Branch", b =>
                 {
-                    b.Navigation("BranchesDepartments");
-
                     b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("GCall.Domain.Entities.Definitions.Company", b =>
                 {
                     b.Navigation("Branches");
-                });
-
-            modelBuilder.Entity("GCall.Domain.Entities.Definitions.Department", b =>
-                {
-                    b.Navigation("BranchesDepartments");
                 });
 #pragma warning restore 612, 618
         }

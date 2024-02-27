@@ -4,6 +4,7 @@ using GCall.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GCall.Persistence.Migrations
 {
     [DbContext(typeof(GCallDbContext))]
-    partial class GCallDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240227113511_Mig_4")]
+    partial class Mig_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,9 +177,6 @@ namespace GCall.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BranchId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -186,9 +186,6 @@ namespace GCall.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("MainDepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -197,8 +194,6 @@ namespace GCall.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.ToTable("Departments");
                 });
@@ -233,18 +228,9 @@ namespace GCall.Persistence.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("GCall.Domain.Entities.Definitions.Department", b =>
-                {
-                    b.HasOne("GCall.Domain.Entities.Definitions.Branch", null)
-                        .WithMany("Departments")
-                        .HasForeignKey("BranchId");
-                });
-
             modelBuilder.Entity("GCall.Domain.Entities.Definitions.Branch", b =>
                 {
                     b.Navigation("BranchesDepartments");
-
-                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("GCall.Domain.Entities.Definitions.Company", b =>

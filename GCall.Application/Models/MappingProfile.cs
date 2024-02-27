@@ -5,6 +5,7 @@ using GCall.Application.Features.Commands.Definitions.Branch.Update;
 using GCall.Application.Features.Commands.Definitions.Company.Create;
 using GCall.Application.Features.Commands.Definitions.Company.Update;
 using GCall.Application.Features.Commands.Definitions.Department.Create;
+using GCall.Application.Features.Commands.Definitions.Department.Update;
 using GCall.Application.Features.Queries.Definitions.Company.GetById;
 using GCall.Application.Features.Queries.Definitions.Customer.GetById;
 using GCall.Application.Features.Queries.Definitions.Department.GetById;
@@ -37,13 +38,21 @@ namespace GCall.Application.Models
                     return srcMember != null && !(srcMember is Guid guidValue && guidValue == Guid.Empty);
                 });
             });
-
             CreateMap<Branch, ResponseUpdateBranch>();
             #endregion
 
             #region Department
-            //CreateMap<Department, ResponseGetByIdDepartment>();
+            CreateMap<Department, ResponseGetByIdDepartment>();
             CreateMap<RequestCreateDepartment, Department>().ReverseMap();
+            CreateMap<RequestUpdateDepartment, Department>().ForAllMembers(opts =>
+            {
+                opts.Condition((src, dest, srcMember, destMember) =>
+                {
+
+                    return srcMember != null && !(srcMember is Guid guidValue && guidValue == Guid.Empty);
+                });
+            });
+            CreateMap<Department, ResponseUpdateDepartment>();
             #endregion
 
             #region Customer

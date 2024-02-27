@@ -23,6 +23,9 @@ namespace GCall.Persistence
 
             services.AddScoped<IBranchReadRepository, BranchReadRepository>();
             services.AddScoped<IBranchWriteRepository, BranchWriteRepository>();
+
+            services.AddScoped<IDepartmentReadRepository, DepartmentReadRepository>();
+            services.AddScoped<IDepartmentWriteRepository, DepartmentWriteRepository>();
             #endregion
 
         }

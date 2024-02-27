@@ -1,5 +1,4 @@
 ﻿using GCall.Domain.Entities.Common;
-using System.Reflection.Emit;
 
 namespace GCall.Domain.Entities.Definitions
 {
@@ -8,6 +7,7 @@ namespace GCall.Domain.Entities.Definitions
         public string Name { get; set; }
         public Guid CompanyId { get; set; }
         public Company Company { get; set; }
+        public ICollection<Department> Departments { get; set; }
         public ICollection<BranchDepartment> BranchesDepartments { get; set; }
     }
 }
