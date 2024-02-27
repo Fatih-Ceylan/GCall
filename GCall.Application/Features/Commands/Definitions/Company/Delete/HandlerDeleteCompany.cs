@@ -1,7 +1,5 @@
-﻿using GCall.Application.Repositories.ReadRepository.Definitions;
-using GCall.Application.Repositories.WriteRepository.Definitions;
+﻿using GCall.Application.Repositories.WriteRepository.Definitions;
 using MediatR;
-using T = GCall.Domain.Entities.Definitions;
 
 namespace GCall.Application.Features.Commands.Definitions.Company.Delete
 {

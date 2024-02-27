@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Internal.Mappers;
 using GCall.Application.Repositories.ReadRepository.Definitions;
 using GCall.Application.Repositories.WriteRepository.Definitions;
 using MediatR;
