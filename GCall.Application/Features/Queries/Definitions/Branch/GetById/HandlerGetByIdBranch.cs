@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using GCall.Application.DTOs.Definitions.Branch;
 using GCall.Application.Repositories.ReadRepository.Definitions;
 using MediatR;
+using System.Linq.Expressions;
 using T = GCall.Domain.Entities.Definitions;
 
 namespace GCall.Application.Features.Queries.Definitions.Branch.GetById
@@ -17,8 +19,15 @@ namespace GCall.Application.Features.Queries.Definitions.Branch.GetById
         }
         public async Task<ResponseGetByIdBranch> Handle(RequestGetByIdBranch request, CancellationToken cancellationToken)
         {
-            T.Branch branch = await _branchReadRepository.GetByIdAsync(request.Id, false);
-            return _mapper.Map<ResponseGetByIdBranch>(branch);
+            T.Branch branches = await _branchReadRepository.GetByIdAsyncIncluding(new Expression<Func<T.Branch, object>>[]
+                {
+                    x => x.Company
+                }, request.Id, false);
+
+            return await Task.FromResult(new ResponseGetByIdBranch
+            {
+                Branch = _mapper.Map<BranchFullDTO>(branches),
+            });
         }
     }
 }

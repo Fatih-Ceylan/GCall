@@ -14,8 +14,8 @@ namespace GCall.Application.Features.Queries.Definitions.Customer.GetAll
 
         public Task<ResponseGetAllCustomer> Handle(RequestGetAllCustomer request, CancellationToken cancellationToken)
         {
-            var totalCount = _customerReadRepository.GetAll(false).Count();
-            var customers = _customerReadRepository.GetAll(false)
+            var totalCount = _customerReadRepository.GetAllDeletedStatus(false).Count();
+            var customers = _customerReadRepository.GetAllDeletedStatusDescending(false)
                                              .Skip(request.Page * request.Size)
                                              .Take(request.Size).ToList();
 

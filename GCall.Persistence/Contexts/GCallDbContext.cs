@@ -15,6 +15,8 @@ namespace GCall.Persistence.Contexts
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Branch> Branches { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<BranchDepartment> BranchesDepartments { get; set; }
         #endregion
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

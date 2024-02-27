@@ -2,7 +2,7 @@
 {
     public class ResponseGetByIdCustomer
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public int Code { get; set; }
         public string Title { get; set; }
     }

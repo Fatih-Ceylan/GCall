@@ -15,8 +15,8 @@ namespace GCall.Application.Features.Queries.Definitions.Company.GetAll
 
         public Task<ResponseGetAllCompany> Handle(RequestGetAllCompany request, CancellationToken cancellationToken)
         {
-            var totalCount = _companyReadRepository.GetAllDescending(false).Count();
-            var companies = _companyReadRepository.GetAllDescending(false)
+            var totalCount = _companyReadRepository.GetAllDeletedStatus(false).Count();
+            var companies = _companyReadRepository.GetAllDeletedStatusDescending(false)
                                              .Skip(request.Page * request.Size)
                                              .Take(request.Size).ToList();
 

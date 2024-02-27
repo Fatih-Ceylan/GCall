@@ -21,6 +21,8 @@
   <ItemGroup>
     <Folder Include="Features\Commands\Definitions\Customer\Delete\" />
     <Folder Include="Features\Commands\Definitions\Customer\Update\" />
+    <Folder Include="Features\Commands\Definitions\Department\Delete\" />
+    <Folder Include="Features\Commands\Definitions\Department\Update\" />
   </ItemGroup>
 
 </Project>

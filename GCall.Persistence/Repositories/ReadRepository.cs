@@ -15,10 +15,18 @@ namespace GCall.Persistence.Repositories
         }
         public DbSet<T> Table => _context.Set<T>();
 
-
         public IQueryable<T> GetAll(bool tracking = true)
         {
-            var query = Table.Where(x => x.IsDeleted == false).AsQueryable();
+            var query = Table.AsQueryable();
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            return query;
+        }
+
+        public IQueryable<T> GetAllDeletedStatus(bool tracking = true, bool isDeleted = false)
+        {
+            var query = Table.Where(x => x.IsDeleted == isDeleted).AsQueryable();
             if (!tracking)
                 query = query.AsNoTracking();
 
@@ -42,9 +50,35 @@ namespace GCall.Persistence.Repositories
             return query;
         }
 
+        public IQueryable<T> GetAllDeletedStatusIncluding(Expression<Func<T, object>>[] includeExpressions, bool tracking = true, bool isDeleted = false)
+        {
+            var query = Table.Where(x => x.IsDeleted == isDeleted).AsQueryable();
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            if (includeExpressions != null && includeExpressions.Any())
+            {
+                foreach (var includeExpression in includeExpressions)
+                {
+                    query = query.Include(includeExpression);
+                }
+            }
+
+            return query;
+        }
+
         public IQueryable<T> GetAllDescending(bool tracking = true)
         {
-            var query = Table.Where(x => x.IsDeleted == false).OrderByDescending(x => x.CreatedDate).AsQueryable();
+            var query = Table.OrderByDescending(x => x.CreatedDate).AsQueryable();
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            return query;
+        }
+
+        public IQueryable<T> GetAllDeletedStatusDescending(bool tracking = true, bool isDeleted = false)
+        {
+            var query = Table.Where(x => x.IsDeleted == isDeleted).OrderByDescending(x => x.CreatedDate).AsQueryable();
             if (!tracking)
                 query = query.AsNoTracking();
 
@@ -60,7 +94,24 @@ namespace GCall.Persistence.Repositories
             return await query.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
         }
 
-        public async Task<T> GetSingleAsync(System.Linq.Expressions.Expression<Func<T, bool>> method, bool tracking = true)
+        public async Task<T> GetByIdAsyncIncluding(Expression<Func<T, object>>[] includeExpressions, string id, bool tracking = true)
+        {
+            var query = Table.Where(x => x.IsDeleted == false).AsQueryable();
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            if (includeExpressions != null && includeExpressions.Any())
+            {
+                foreach (var includeExpression in includeExpressions)
+                {
+                    query = query.Include(includeExpression);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
+        }
+
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true)
         {
             var query = Table.AsQueryable();
             if (!tracking)
@@ -69,7 +120,7 @@ namespace GCall.Persistence.Repositories
             return await query.FirstOrDefaultAsync(method);
         }
 
-        public IQueryable<T> GetWhere(System.Linq.Expressions.Expression<Func<T, bool>> method, bool tracking = true)
+        public IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true)
         {
             var query = Table.Where(method);
             if (!tracking)

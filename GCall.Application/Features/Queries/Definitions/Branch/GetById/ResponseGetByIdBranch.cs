@@ -2,5 +2,6 @@
 {
     public class ResponseGetByIdBranch
     {
+        public object Branch { get; set; }
     }
 }

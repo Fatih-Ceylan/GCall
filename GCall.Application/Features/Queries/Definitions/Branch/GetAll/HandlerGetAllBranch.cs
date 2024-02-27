@@ -20,8 +20,8 @@ namespace GCall.Application.Features.Queries.Definitions.Branch.GetAll
 
         public Task<ResponseGetAllBranch> Handle(RequestGetAllBranch request, CancellationToken cancellationToken)
         {
-            var totalCount = _branchReadRepository.GetAllDescending(false).Count();
-            var branches = _branchReadRepository.GetAllIncluding(new Expression<Func<T.Branch, object>>[]
+            var totalCount = _branchReadRepository.GetAllDeletedStatus(false).Count();
+            var branches = _branchReadRepository.GetAllDeletedStatusIncluding(new Expression<Func<T.Branch, object>>[]
                 {
                     x => x.Company
                 }, false)
@@ -45,7 +45,7 @@ namespace GCall.Application.Features.Queries.Definitions.Branch.GetAll
             return Task.FromResult(new ResponseGetAllBranch
             {
                 TotalCount = totalCount,
-                Branches = _mapper.Map<List<BranchListDTO>>(branches),
+                Branches = _mapper.Map<List<BranchFullDTO>>(branches),
             });
         }
     }
