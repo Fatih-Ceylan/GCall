@@ -23,7 +23,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] RequestGetAllDepartment requestGetAllDepartment)
+        public async Task<IActionResult> GetAllDepartment([FromQuery] RequestGetAllDepartment requestGetAllDepartment)
         {
             ResponseGetAllDepartment response = await _mediator.Send(requestGetAllDepartment);
 
@@ -31,7 +31,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetById([FromRoute] RequestGetByIdDepartment requestGetByIdDepartment)
+        public async Task<IActionResult> GetByIdDepartment([FromRoute] RequestGetByIdDepartment requestGetByIdDepartment)
         {
             ResponseGetByIdDepartment response = await _mediator.Send(requestGetByIdDepartment);
 
@@ -39,7 +39,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] RequestCreateDepartment request)
+        public async Task<IActionResult> PostDepartment([FromBody] RequestCreateDepartment request)
         {
             ResponseCreateDepartment response = await _mediator.Send(request);
 
@@ -47,7 +47,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] RequestUpdateDepartment request)
+        public async Task<IActionResult> UpdateDepartment([FromBody] RequestUpdateDepartment request)
         {
             ResponseUpdateDepartment response = await _mediator.Send(request);
 

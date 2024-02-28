@@ -23,7 +23,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] RequestGetAllCustomer requestGetAllCustomer)
+        public async Task<IActionResult> GetAllCustomer([FromQuery] RequestGetAllCustomer requestGetAllCustomer)
         {
             ResponseGetAllCustomer response = await _mediator.Send(requestGetAllCustomer);
 
@@ -32,7 +32,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetById([FromRoute] RequestGetByIdCustomer requestGetByIdCustomer)
+        public async Task<IActionResult> GetByIdCustomer([FromRoute] RequestGetByIdCustomer requestGetByIdCustomer)
         {
             ResponseGetByIdCustomer response = await _mediator.Send(requestGetByIdCustomer);
 
@@ -40,7 +40,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] RequestCreateCustomer request)
+        public async Task<IActionResult> PostCustomer([FromBody] RequestCreateCustomer request)
         {
             ResponseCreateCustomer response = await _mediator.Send(request);
 
