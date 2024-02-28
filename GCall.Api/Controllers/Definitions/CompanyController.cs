@@ -24,21 +24,21 @@ namespace GCall.Api.Controllers.Definitions
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] RequestGetAllCompany requestGetAllCompany)
+        public async Task<IActionResult> GetAllCompany([FromQuery] RequestGetAllCompany requestGetAllCompany)
         {
             ResponseGetAllCompany response = await _mediator.Send(requestGetAllCompany);
 
             return Ok(response);
         }
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetById([FromRoute] RequestGetByIdCompany requestGetByIdCompany)
+        public async Task<IActionResult> GetByIdCompany([FromRoute] RequestGetByIdCompany requestGetByIdCompany)
         {
             ResponseGetByIdCompany response = await _mediator.Send(requestGetByIdCompany);
 
             return Ok(response);
         }
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] RequestCreateCompany request)
+        public async Task<IActionResult> PostCompany([FromBody] RequestCreateCompany request)
         {
             ResponseCreateCompany response = await _mediator.Send(request);
 
@@ -46,7 +46,7 @@ namespace GCall.Api.Controllers.Definitions
             return StatusCode((int)HttpStatusCode.Created);
         }
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] RequestUpdateCompany request)
+        public async Task<IActionResult> UpdateCompany([FromBody] RequestUpdateCompany request)
         {
             ResponseUpdateCompany response = await _mediator.Send(request);
 
@@ -55,7 +55,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpDelete("{Id}")]
-        public async Task<IActionResult> Delete([FromRoute] RequestDeleteCompany request)
+        public async Task<IActionResult> DeleteCompany([FromRoute] RequestDeleteCompany request)
         {
             ResponseDeleteCompany response = await _mediator.Send(request);
             return Ok(response);
