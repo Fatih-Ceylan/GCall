@@ -23,7 +23,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] RequestGetAllBranch requestGetAllBranch)
+        public async Task<IActionResult> GetAllBranch([FromQuery] RequestGetAllBranch requestGetAllBranch)
         {
             ResponseGetAllBranch response = await _mediator.Send(requestGetAllBranch);
 
@@ -31,7 +31,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetById([FromRoute] RequestGetByIdBranch requestGetByIdBranch)
+        public async Task<IActionResult> GetByIdBranch([FromRoute] RequestGetByIdBranch requestGetByIdBranch)
         {
             ResponseGetByIdBranch response = await _mediator.Send(requestGetByIdBranch);
 
@@ -39,7 +39,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] RequestCreateBranch request)
+        public async Task<IActionResult> CreateBranch([FromBody] RequestCreateBranch request)
         {
             ResponseCreateBranch response = await _mediator.Send(request);
 
@@ -47,7 +47,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] RequestUpdateBranch request)
+        public async Task<IActionResult> UpdateBranch([FromBody] RequestUpdateBranch request)
         {
             ResponseUpdateBranch response = await _mediator.Send(request);
 
@@ -55,7 +55,7 @@ namespace GCall.Api.Controllers.Definitions
         }
 
         [HttpDelete("{Id}")]
-        public async Task<IActionResult> Delete([FromRoute] RequestDeleteBranch request)
+        public async Task<IActionResult> DeleteBranch([FromRoute] RequestDeleteBranch request)
         {
             ResponseDeleteBranch response = await _mediator.Send(request);
             return Ok(response);
