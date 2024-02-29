@@ -1,6 +1,8 @@
 using GCall.Persistence;
 using GCall.Application;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using GCall.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceServices();
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 
 // cors policy izinleri. ip adresi frontend ip adresi olacak.
 builder.Services.AddCors(options =>
@@ -26,6 +29,22 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthentication("Admin")
+                 .AddJwtBearer(option =>
+                 {
+                     option.TokenValidationParameters = new()
+                     {
+                         ValidateAudience = true,
+                         ValidateIssuer = true,
+                         ValidateLifetime = true,
+                         ValidateIssuerSigningKey = true,
+
+                         ValidAudience = builder.Configuration["Token:Audience"],
+                         ValidIssuer = builder.Configuration["Token:Issuer"],
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"]))
+                     };
+                 });
 
 var app = builder.Build();
 
