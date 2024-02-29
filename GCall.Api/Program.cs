@@ -3,6 +3,7 @@ using GCall.Application;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GCall.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +31,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication("Admin")
-                 .AddJwtBearer(option =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                 .AddJwtBearer("Admin", option =>
                  {
                      option.TokenValidationParameters = new()
                      {
@@ -75,6 +76,8 @@ app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseDeveloperExceptionPage();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

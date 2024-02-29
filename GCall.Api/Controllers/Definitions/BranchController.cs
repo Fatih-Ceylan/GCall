@@ -4,6 +4,7 @@ using GCall.Application.Features.Commands.Definitions.Branch.Update;
 using GCall.Application.Features.Queries.Definitions.Branch.GetAll;
 using GCall.Application.Features.Queries.Definitions.Branch.GetById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -13,6 +14,7 @@ namespace GCall.Api.Controllers.Definitions
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("MyPolicy")]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class BranchController : ControllerBase
     {
         readonly IMediator _mediator;
