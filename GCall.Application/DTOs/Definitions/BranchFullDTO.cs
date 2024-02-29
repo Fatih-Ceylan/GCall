@@ -1,4 +1,4 @@
-﻿namespace GCall.Application.DTOs.Definitions.Branch
+﻿namespace GCall.Application.DTOs.Definitions
 {
     public class BranchFullDTO
     {

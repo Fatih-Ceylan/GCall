@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GCall.Application.DTOs.Definitions.Branch;
+using GCall.Application.DTOs.Definitions;
 using GCall.Application.Features.Commands.Definitions.Branch.Create;
 using GCall.Application.Features.Commands.Definitions.Branch.Update;
 using GCall.Application.Features.Commands.Definitions.Company.Create;

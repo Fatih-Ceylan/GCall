@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GCall.Application.DTOs.Definitions.Branch;
+using GCall.Application.DTOs.Definitions;
 using GCall.Application.Repositories.ReadRepository.Definitions;
 using MediatR;
 using System.Linq.Expressions;
