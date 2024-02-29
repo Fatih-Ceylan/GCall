@@ -1,6 +1,8 @@
 ﻿using GCall.Application.Repositories.ReadRepository.Definitions;
 using GCall.Application.Repositories.WriteRepository.Definitions;
+using GCall.Domain.Entities.Identity;
 using GCall.Persistence.Contexts;
+using GCall.Persistence.Contexts.IdentityDbContext;
 using GCall.Persistence.Repositories.ReadRepository.Definitions;
 using GCall.Persistence.Repositories.WriteRepository.Definitions;
 using GCall.Persistence.Services;
@@ -13,6 +15,10 @@ namespace GCall.Persistence
         public static void AddPersistenceServices(this IServiceCollection services)
         {
             services.AddDbContext<GCallDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
+            services.AddDbContext<AspCoreIdentityDbContext>(options => options.UseSqlServer(Configuration.IdentityConnectionString));
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AspCoreIdentityDbContext>();
+
+
 
             #region Definitions
             services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
