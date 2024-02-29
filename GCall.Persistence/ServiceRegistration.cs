@@ -16,7 +16,15 @@ namespace GCall.Persistence
         {
             services.AddDbContext<GCallDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
             services.AddDbContext<AspCoreIdentityDbContext>(options => options.UseSqlServer(Configuration.IdentityConnectionString));
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AspCoreIdentityDbContext>();
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                //TODO: bu alan kurallandırılacak.
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<AspCoreIdentityDbContext>();
 
 
 

@@ -4,7 +4,7 @@ using GCall.Persistence.Contexts;
 
 namespace GCall.Persistence.Repositories.ReadRepository.Definitions
 {
-    public class CustomerReadRepository : ReadRepository<Customer>, ICustomerReadRepository
+    public class CustomerReadRepository : ReadRepository<GCallDbContext,Customer>, ICustomerReadRepository
     {
         public CustomerReadRepository(GCallDbContext context) : base(context)
         {

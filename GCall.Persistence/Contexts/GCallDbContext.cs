@@ -7,7 +7,7 @@ namespace GCall.Persistence.Contexts
 {
     public class GCallDbContext : DbContext
     {
-        public GCallDbContext(DbContextOptions options) : base(options)
+        public GCallDbContext(DbContextOptions<GCallDbContext> options) : base(options)
         {
         }
 

@@ -1,8 +1,6 @@
 ﻿using T = GCall.Domain.Entities.Identity;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using GCall.Application.Exceptions;
 
 namespace GCall.Application.Features.Commands.Identity.AppUser.Create
 {
@@ -19,21 +17,23 @@ namespace GCall.Application.Features.Commands.Identity.AppUser.Create
         {
             IdentityResult result = await _userManager.CreateAsync(new()
             {
-                Id = request.Id.ToString(),
+                Id = Guid.NewGuid().ToString(),
                 FullName = request.FullName,
                 UserName = request.UserName,
                 Email = request.Email,
             }, request.Password);
 
-            if (result.Succeeded)
+            ResponseCreateAppUser response = new() { Succeed = result.Succeeded };
+            if (!result.Succeeded)
             {
-                return new ResponseCreateAppUser
+                response.Message = "";
+                foreach (var error in result.Errors)
                 {
-                    Succeed = true
-                };
+                    response.Message += $"{error.Code} - {error.Description} \n ";
+                }
             }
-            throw new UserCreateFailedException(result.Errors.First().Description);
 
+            return response;
         }
     }
 }

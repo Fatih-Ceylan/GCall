@@ -6,10 +6,10 @@ using System.Linq.Expressions;
 
 namespace GCall.Persistence.Repositories
 {
-    public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity
+    public class ReadRepository<DC, T> : IReadRepository<T> where T : BaseEntity where DC : DbContext
     {
-        readonly GCallDbContext _context;
-        public ReadRepository(GCallDbContext context)
+        readonly DC _context;
+        public ReadRepository(DC context)
         {
             _context = context;
         }

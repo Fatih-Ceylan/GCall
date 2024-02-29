@@ -6,12 +6,12 @@ using GCall.Persistence.Contexts;
 namespace GCall.Persistence
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<GCallDbContext>
+    {
+        public GCallDbContext CreateDbContext(string[] args)
         {
-            public GCallDbContext CreateDbContext(string[] args)
-            {
-                DbContextOptionsBuilder<GCallDbContext> dbContextOptionsBuilder = new();
-                dbContextOptionsBuilder.UseSqlServer(Configuration.ConnectionString);
-                return new(dbContextOptionsBuilder.Options);
-            }
+            DbContextOptionsBuilder<GCallDbContext> dbContextOptionsBuilder = new();
+            dbContextOptionsBuilder.UseSqlServer(Configuration.ConnectionString);
+            return new(dbContextOptionsBuilder.Options);
         }
+    }
 }

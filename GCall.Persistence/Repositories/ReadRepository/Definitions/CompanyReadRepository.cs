@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GCall.Persistence.Repositories.ReadRepository.Definitions
 {
-    public class CompanyReadRepository : ReadRepository<Company>, ICompanyReadRepository
+    public class CompanyReadRepository : ReadRepository<GCallDbContext, Company>, ICompanyReadRepository
     {
         public CompanyReadRepository(GCallDbContext context) : base(context)
         {
