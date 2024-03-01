@@ -1,11 +1,7 @@
-﻿using GCall.Application.Features.Commands.Definitions.Company.Create;
-using GCall.Application.Features.Commands.Identity.AppUser.Create;
-using GCall.Application.Features.Commands.Identity.AppUser.Login;
+﻿using GCall.Application.Features.Commands.Identity.AppUser.Create;
 using MediatR;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace GCall.Api.Controllers.Identity
 {
@@ -26,13 +22,6 @@ namespace GCall.Api.Controllers.Identity
         {
             ResponseCreateAppUser response = await _mediator.Send(request);
 
-            return Ok(response);
-        }
-
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Login(RequestLoginAppUser request)
-        {
-            ResponseLoginAppUser response = await _mediator.Send(request);
             return Ok(response);
         }
     }
