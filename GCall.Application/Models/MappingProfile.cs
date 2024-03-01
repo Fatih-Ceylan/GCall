@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GCall.Application.DTOs.Definitions;
 using GCall.Application.DTOs.Identity.AppUser;
+using GCall.Application.DTOs.Identity.Auth.Login;
 using GCall.Application.Features.Commands.Definitions.Branch.Create;
 using GCall.Application.Features.Commands.Definitions.Branch.Update;
 using GCall.Application.Features.Commands.Definitions.Company.Create;
@@ -8,6 +9,7 @@ using GCall.Application.Features.Commands.Definitions.Company.Update;
 using GCall.Application.Features.Commands.Definitions.Department.Create;
 using GCall.Application.Features.Commands.Definitions.Department.Update;
 using GCall.Application.Features.Commands.Identity.AppUser.Create;
+using GCall.Application.Features.Commands.Identity.AppUser.Login;
 using GCall.Application.Features.Queries.Definitions.Company.GetById;
 using GCall.Application.Features.Queries.Definitions.Customer.GetById;
 using GCall.Application.Features.Queries.Definitions.Department.GetById;
@@ -65,6 +67,9 @@ namespace GCall.Application.Models
             #region AppUser
             CreateMap<RequestCreateAppUser, CreateUserRequestDTO>().ReverseMap();
             CreateMap<ResponseCreateAppUser, CreateUserResponseDTO>().ReverseMap();
+
+            CreateMap<RequestLoginAppUser, LoginRequestDTO>().ReverseMap();
+            CreateMap<ResponseLoginAppUser, LoginResponseDTO>().ReverseMap();
             #endregion
 
         }

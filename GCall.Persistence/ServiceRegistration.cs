@@ -1,4 +1,5 @@
-﻿using GCall.Application.Repositories.ReadRepository.Definitions;
+﻿using GCall.Application.Absractions.Services;
+using GCall.Application.Repositories.ReadRepository.Definitions;
 using GCall.Application.Repositories.WriteRepository.Definitions;
 using GCall.Domain.Entities.Identity;
 using GCall.Persistence.Contexts;
@@ -40,6 +41,11 @@ namespace GCall.Persistence
 
             services.AddScoped<IDepartmentReadRepository, DepartmentReadRepository>();
             services.AddScoped<IDepartmentWriteRepository, DepartmentWriteRepository>();
+            #endregion
+
+            #region AppUser
+            services.AddScoped<IAppUserService, AppUserService>();
+            services.AddScoped<IAuthService, AuthService>();
             #endregion
 
         }

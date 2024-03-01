@@ -1,14 +1,7 @@
-﻿using Azure.Core;
-using GCall.Application.Absractions.Services;
+﻿using GCall.Application.Absractions.Services;
 using GCall.Application.DTOs.Identity.AppUser;
-using GCall.Application.Features.Commands.Identity.AppUser.Create;
 using GCall.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using T = GCall.Domain.Entities.Identity;
 
 namespace GCall.Persistence.Services

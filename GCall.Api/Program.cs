@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPersistenceServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddAuthentication();
 
 // cors policy izinleri. ip adresi frontend ip adresi olacak.
 builder.Services.AddCors(options =>

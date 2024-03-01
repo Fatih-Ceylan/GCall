@@ -1,6 +1,4 @@
-﻿using T = GCall.Domain.Entities.Identity;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
 using GCall.Application.Absractions.Services;
 using AutoMapper;
 using GCall.Application.DTOs.Identity.AppUser;
