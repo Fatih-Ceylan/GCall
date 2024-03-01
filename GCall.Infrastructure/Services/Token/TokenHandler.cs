@@ -36,6 +36,7 @@ namespace GCall.Infrastructure.Services.Token
                 signingCredentials: signingCredentiales
                 );
 
+
             //Token oluşturucu sınıfından bir örnek alınacak.
             JwtSecurityTokenHandler tokenHandler = new();
             tokenDTO.AccessToken = tokenHandler.WriteToken(securityToken);

@@ -1,39 +1,29 @@
 ﻿using T = GCall.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using GCall.Application.Absractions.Services;
+using AutoMapper;
+using GCall.Application.DTOs.Identity.AppUser;
 
 namespace GCall.Application.Features.Commands.Identity.AppUser.Create
 {
     public class HandlerCreateAppUser : IRequestHandler<RequestCreateAppUser, ResponseCreateAppUser>
     {
-        readonly UserManager<T.AppUser> _userManager;
+        readonly IAppUserService _appUserService;
+        readonly IMapper _mapper;
 
-        public HandlerCreateAppUser(UserManager<T.AppUser> userManager)
+        public HandlerCreateAppUser(IAppUserService appUserService, IMapper mapper)
         {
-            _userManager = userManager;
+            _appUserService = appUserService;
+            _mapper = mapper;
         }
 
         public async Task<ResponseCreateAppUser> Handle(RequestCreateAppUser request, CancellationToken cancellationToken)
         {
-            IdentityResult result = await _userManager.CreateAsync(new()
-            {
-                Id = Guid.NewGuid().ToString(),
-                FullName = request.FullName,
-                UserName = request.UserName,
-                Email = request.Email,
-            }, request.Password);
+            var appUserRequestDto = _mapper.Map<CreateUserRequestDTO>(request);
+            var appUserResponseDto = await _appUserService.CreateAsync(appUserRequestDto);
 
-            ResponseCreateAppUser response = new() { Succeed = result.Succeeded };
-            if (!result.Succeeded)
-            {
-                response.Message = "";
-                foreach (var error in result.Errors)
-                {
-                    response.Message += $"{error.Code} - {error.Description} \n ";
-                }
-            }
-
-            return response;
+            return _mapper.Map<ResponseCreateAppUser>(appUserResponseDto);
         }
     }
 }

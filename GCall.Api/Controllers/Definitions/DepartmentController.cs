@@ -1,5 +1,4 @@
-﻿
-using GCall.Application.Features.Commands.Definitions.Department.Create;
+﻿using GCall.Application.Features.Commands.Definitions.Department.Create;
 using GCall.Application.Features.Commands.Definitions.Department.Update;
 using GCall.Application.Features.Queries.Definitions.Department.GetAll;
 using GCall.Application.Features.Queries.Definitions.Department.GetById;
