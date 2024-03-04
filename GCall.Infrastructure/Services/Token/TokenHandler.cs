@@ -3,6 +3,7 @@ using GCall.Application.DTOs.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace GCall.Infrastructure.Services.Token
@@ -27,13 +28,21 @@ namespace GCall.Infrastructure.Services.Token
             SigningCredentials signingCredentiales = new(securityKey, SecurityAlgorithms.HmacSha256);
 
             //oluşturulacak token ayarlarını veriyoruz.
+            var audiences = _configuration.GetSection("Token:Audience").Get<string[]>();
+
+            List<Claim> audienceClaims = new();
+            foreach (var audience in audiences)
+            {
+                audienceClaims.Add(new Claim("aud", audience));
+            }
+
             tokenDTO.ExpiryDate = DateTime.Now.AddMinutes(minute);
             JwtSecurityToken securityToken = new(
-                audience: _configuration["Token:Audience"],
                 issuer: _configuration["Token:Issuer"],
                 expires: tokenDTO.ExpiryDate,
                 notBefore: DateTime.Now,
-                signingCredentials: signingCredentiales
+                signingCredentials: signingCredentiales,
+                claims: audienceClaims
                 );
 
 
