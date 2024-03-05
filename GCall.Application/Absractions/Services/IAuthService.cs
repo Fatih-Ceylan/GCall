@@ -5,5 +5,6 @@ namespace GCall.Application.Absractions.Services
     public interface IAuthService
     {
         Task<LoginResponseDTO> LoginAsync(LoginRequestDTO model);
+        Task<LoginResponseDTO> RefreshTokenLoginAsync(string refreshToken);
     }
 }
