@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace GCall.Infrastructure.Services.Token
@@ -17,7 +18,7 @@ namespace GCall.Infrastructure.Services.Token
             _configuration = configuration;
         }
 
-        public TokenDTO CreateAccessToken(int minute)
+        public TokenDTO CreateAccessToken(int second)
         {
             TokenDTO tokenDTO = new TokenDTO();
 
@@ -36,11 +37,11 @@ namespace GCall.Infrastructure.Services.Token
                 audienceClaims.Add(new Claim("aud", audience));
             }
 
-            tokenDTO.ExpiryDate = DateTime.Now.AddMinutes(minute);
+            tokenDTO.ExpiryDate = DateTime.UtcNow.AddMinutes(second);
             JwtSecurityToken securityToken = new(
                 issuer: _configuration["Token:Issuer"],
                 expires: tokenDTO.ExpiryDate,
-                notBefore: DateTime.Now,
+                notBefore: DateTime.UtcNow,
                 signingCredentials: signingCredentiales,
                 claims: audienceClaims
                 );
@@ -50,7 +51,17 @@ namespace GCall.Infrastructure.Services.Token
             JwtSecurityTokenHandler tokenHandler = new();
             tokenDTO.AccessToken = tokenHandler.WriteToken(securityToken);
 
+            tokenDTO.RefreshToken = CreateRefreshToken();
             return tokenDTO;
+        }
+
+        public string CreateRefreshToken()
+        {
+            byte[] number = new byte[32];
+            using RandomNumberGenerator random = RandomNumberGenerator.Create();
+            random.GetBytes(number);
+
+            return Convert.ToBase64String(number);
         }
     }
 }
