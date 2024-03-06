@@ -1,5 +1,6 @@
 ﻿using GCall.Application.Absractions.Services;
 using GCall.Application.DTOs.Identity.AppUser;
+using GCall.Application.Exceptions;
 using GCall.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using T = GCall.Domain.Entities.Identity;
@@ -36,6 +37,20 @@ namespace GCall.Persistence.Services
             }
 
             return response;
+        }
+
+        public async Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime accessTokenDate, int addOnAccessTokenDate)
+        {
+            if (user != null)
+            {
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenEndDate = accessTokenDate;
+                await _userManager.UpdateAsync(user);
+            }
+            else
+            {
+                throw new NotFoundUserException();
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ namespace GCall.Persistence.Services
                 ConfigurationManager configurationManager = new();
                 configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..\\GCall.Api"));
                 configurationManager.AddJsonFile("appsettings.json");
+                
 
                 return configurationManager.GetConnectionString("AspCoreIdentitySqlServer");
             }
